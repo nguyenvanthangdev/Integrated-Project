@@ -1,5 +1,14 @@
 import React, { Component } from "react";
 //import { FormattedMessage } from "react-intl";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 import { connect } from "react-redux";
 import "./Dashboard.scss";
 import { getAllUsers, countUser } from "../../../services/userService";
@@ -99,91 +108,205 @@ class UserManage extends Component {
     }
   };
   render() {
+    const data = [
+      { name: "Jan", value: 20 },
+      { name: "Feb", value: 30 },
+      { name: "Mar", value: 35 },
+      { name: "Apr", value: 45 },
+      { name: "May", value: 50 },
+      { name: "Jun", value: 40 },
+      { name: "Jul", value: 55 },
+      { name: "Aug", value: 60 },
+      { name: "Sep", value: 70 },
+      { name: "Oct", value: 65 },
+      { name: "Nov", value: 75 },
+      { name: "Dec", value: 80 },
+    ];
     return (
-      <div className="container-fluid">
-        <div className="d-sm-flex align-items-center justify-content-between mb-4 my-4">
-          <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
-        </div>
-        <div className="row">
-          <div className="col-xl-3 col-md-6 mb-4">
-            <div className="card border-left-primary shadow h-100 py-2">
-              <div className="card-body">
-                <div className="row no-gutters align-items-center">
-                  <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-danger mb-1 h4">
-                      User
+      <React.Fragment>
+        <div className="container-fluid">
+          <div className="d-sm-flex align-items-center justify-content-between mb-4 my-4">
+            <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
+          </div>
+          <div className="row">
+            <div className="col-xl-3 col-md-6 mb-4">
+              <div className="card border-left-primary shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-danger mb-1 h4">
+                        User
+                      </div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        {this.state.userCount}
+                      </div>
                     </div>
-                    <div className="h5 mb-0 font-weight-bold text-gray-800">
-                      {this.state.userCount}
+                    <div className="col-auto">
+                      <i className="fas fa-user fa-2x text-gray-300"></i>
                     </div>
                   </div>
-                  <div className="col-auto">
-                    <i className="fas fa-user fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-xl-3 col-md-6 mb-4">
+              <div className="card border-left-success shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-success mb-1 h4">
+                        Pay Rates
+                      </div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        $ {this.state.sumPayRates}
+                      </div>
+                    </div>
+                    <div className="col-auto">
+                      <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-3 col-md-6 mb-4">
+              <div className="card border-left-warning shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-warning mb-1 h4">
+                        Male Gender
+                      </div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        {this.state.MaleCount}
+                      </div>
+                    </div>
+                    <div className="col-auto">
+                      <i className="fas fa-mars fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-3 col-md-6 mb-4">
+              <div className="card border-left-warning shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-primary mb-1 h4">
+                        Female Gender
+                      </div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        {this.state.FemaleCount}
+                      </div>
+                    </div>
+                    <div className="col-auto">
+                      <i className="fas fa-venus fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xl-3 col-md-6 mb-4">
+              <div className="card border-left-primary shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-danger mb-1 h4">
+                        User
+                      </div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        {this.state.userCount}
+                      </div>
+                    </div>
+                    <div className="col-auto">
+                      <i className="fas fa-user fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-xl-3 col-md-6 mb-4">
+              <div className="card border-left-success shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-success mb-1 h4">
+                        Pay Rates
+                      </div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        $ {this.state.sumPayRates}
+                      </div>
+                    </div>
+                    <div className="col-auto">
+                      <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-3 col-md-6 mb-4">
+              <div className="card border-left-warning shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-warning mb-1 h4">
+                        Male Gender
+                      </div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        {this.state.MaleCount}
+                      </div>
+                    </div>
+                    <div className="col-auto">
+                      <i className="fas fa-mars fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-3 col-md-6 mb-4">
+              <div className="card border-left-warning shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-primary mb-1 h4">
+                        Female Gender
+                      </div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        {this.state.FemaleCount}
+                      </div>
+                    </div>
+                    <div className="col-auto">
+                      <i className="fas fa-venus fa-2x text-gray-300"></i>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="col-xl-3 col-md-6 mb-4">
-            <div className="card border-left-success shadow h-100 py-2">
-              <div className="card-body">
-                <div className="row no-gutters align-items-center">
-                  <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-success mb-1 h4">
-                      Pay Rates
-                    </div>
-                    <div className="h5 mb-0 font-weight-bold text-gray-800">
-                      $ {this.state.sumPayRates}
-                    </div>
-                  </div>
-                  <div className="col-auto">
-                    <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-xl-3 col-md-6 mb-4">
-            <div className="card border-left-warning shadow h-100 py-2">
-              <div className="card-body">
-                <div className="row no-gutters align-items-center">
-                  <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-warning mb-1 h4">
-                      Male Gender
-                    </div>
-                    <div className="h5 mb-0 font-weight-bold text-gray-800">
-                      {this.state.MaleCount}
-                    </div>
-                  </div>
-                  <div className="col-auto">
-                    <i className="fas fa-mars fa-2x text-gray-300"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-xl-3 col-md-6 mb-4">
-            <div className="card border-left-warning shadow h-100 py-2">
-              <div className="card-body">
-                <div className="row no-gutters align-items-center">
-                  <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-primary mb-1 h4">
-                      Female Gender
-                    </div>
-                    <div className="h5 mb-0 font-weight-bold text-gray-800">
-                      {this.state.FemaleCount}
-                    </div>
-                  </div>
-                  <div className="col-auto">
-                    <i className="fas fa-venus fa-2x text-gray-300"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <LineChart
+            width={1850}
+            height={400}
+            data={data}
+            className="card shadow my-5 col-xl-12 col-md-6 mb-4  "
+          >
+            <XAxis dataKey="name" />
+            <YAxis />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
+
+            <Line
+              type="monotone"
+              dataKey="value"
+              stroke="#f72585"
+              isFullWidth
+            />
+          </LineChart>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
