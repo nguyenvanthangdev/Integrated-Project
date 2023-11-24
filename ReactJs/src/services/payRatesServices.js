@@ -16,5 +16,7 @@ const deletePayRate = (userId) => {
 const editPayRate = (inputData) => {
   return axios.put("/api/edit-pay-rates", inputData);
 };
-
-export { getAll, createNew, deletePayRate, editPayRate };
+const SumPayRates = () => {
+  return axios.get("/api/get-sum-pay-rates");
+};
+export { getAll, createNew, deletePayRate, editPayRate, SumPayRates };

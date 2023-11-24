@@ -16,5 +16,19 @@ const deletePersonal = (userId) => {
 const editPersonal = (inputData) => {
   return axios.put("http://localhost:8090/api/edit-personal", inputData);
 };
-
-export { getAllPersonal, createNewPersonal, deletePersonal, editPersonal };
+const CountPersonalGenderMale = () => {
+  return axios.get("http://localhost:8090/api/get-count-personal-gender-male");
+};
+const CountPersonalGenderFemale = () => {
+  return axios.get(
+    "http://localhost:8090/api/get-count-personal-gender-female"
+  );
+};
+export {
+  getAllPersonal,
+  createNewPersonal,
+  deletePersonal,
+  editPersonal,
+  CountPersonalGenderMale,
+  CountPersonalGenderFemale,
+};
