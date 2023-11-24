@@ -27,6 +27,7 @@ let initWebRoutes = (app) => {
   router.get("/api/get-user-count", userController.handleCountUsers);
   // Sum Pay-Rates
   router.get("/api/get-sum-pay-rates", payRatesController.handleSumPayRates);
+
   return app.use("/", router);
 };
 module.exports = initWebRoutes;

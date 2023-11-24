@@ -45,10 +45,37 @@ let handleEdit = async (req, res) => {
     });
   }
 };
-
+let handleCountPersonalGenderMale = async (req, res) => {
+  try {
+    let count = await personalServices.CountPersonalGenderMale();
+    return res.status(200).json({
+      count: count,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({
+      error: "An internal server error occurred",
+    });
+  }
+};
+let handleCountPersonalGenderFemale = async (req, res) => {
+  try {
+    let count = await personalServices.CountPersonalGenderFemale();
+    return res.status(200).json({
+      count: count,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({
+      error: "An internal server error occurred",
+    });
+  }
+};
 module.exports = {
   handleGetAll: handleGetAll,
   handleCreate: handleCreate,
   handleEdit: handleEdit,
   handleDelete: handleDelete,
+  handleCountPersonalGenderMale: handleCountPersonalGenderMale,
+  handleCountPersonalGenderFemale: handleCountPersonalGenderFemale,
 };

@@ -26,6 +26,16 @@ let initWebRoutes = (app) => {
     "/api/delete-benefit-plans",
     benefitPlansController.handleDelete
   );
+  // Count Personal Gender Male
+  router.get(
+    "/api/get-count-personal-gender-male",
+    personalController.handleCountPersonalGenderMale
+  );
+  //Count Personal Gender Female
+  router.get(
+    "/api/get-count-personal-gender-female",
+    personalController.handleCountPersonalGenderFemale
+  );
 
   return app.use("/", router);
 };

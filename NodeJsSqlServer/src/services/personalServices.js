@@ -121,10 +121,39 @@ let updateData = (data) => {
     }
   });
 };
-
+let CountPersonalGenderMale = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let count = await db.Personal.count({
+        where: {
+          Gender: true,
+        },
+      });
+      resolve(count);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+let CountPersonalGenderFemale = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let count = await db.Personal.count({
+        where: {
+          Gender: false,
+        },
+      });
+      resolve(count);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 module.exports = {
   getAll: getAll,
   createNew: createNew,
   deletePersonal: deletePersonal,
   updateData: updateData,
+  CountPersonalGenderMale: CountPersonalGenderMale,
+  CountPersonalGenderFemale: CountPersonalGenderFemale,
 };
