@@ -7,7 +7,6 @@ import {
   createNewUserService,
   deleteUserService,
   editUserService,
-  countUser,
 } from "../../../services/userService";
 import ModalUser from "./ModalUser";
 import { emitter } from "../../../utils/emitter";
@@ -43,20 +42,9 @@ class UserManage extends Component {
       isOpenModaEditlUser: !this.state.isOpenModaEditlUser,
     });
   };
-  getCountUser = async () => {
-    try {
-      let response = await countUser();
-      this.setState({
-        userCount: response.count,
-      });
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
   getAllUsersFromReact = async () => {
     let response = await getAllUsers("ALL");
     if (response && response.errCode === 0) {
-      await this.getCountUser();
       this.setState({
         arrUsers: response.users,
       });

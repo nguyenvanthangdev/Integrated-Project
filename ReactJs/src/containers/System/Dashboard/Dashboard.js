@@ -16,14 +16,18 @@ class UserManage extends Component {
     this.state = {
       arrUsers: [],
       arrPayRates: [],
+      arrPersonal: [],
       userCount: 0,
       sumPayRates: 0,
+      MaleCount: 0,
+      FemaleCount: 0,
     };
   }
 
   async componentDidMount() {
     await this.getAllUsersFromReact();
     await this.getAllPayRatesFromReact();
+    await this.getAllPersonalFromReact();
   }
 
   getAllUsersFromReact = async () => {
@@ -64,7 +68,36 @@ class UserManage extends Component {
       console.error("Error:", error);
     }
   };
-
+  getAllPersonalFromReact = async () => {
+    let response = await getAllPersonal("ALL");
+    if (response && response.errCode === 0) {
+      await this.getCountPersonalGenderFemale();
+      await this.getCountPersonalGenderMale();
+      this.setState({
+        arrPersonal: response.users,
+      });
+    }
+  };
+  getCountPersonalGenderFemale = async () => {
+    try {
+      let response = await CountPersonalGenderFemale();
+      this.setState({
+        FemaleCount: response.count,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  getCountPersonalGenderMale = async () => {
+    try {
+      let response = await CountPersonalGenderMale();
+      this.setState({
+        MaleCount: response.count,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   render() {
     return (
       <div className="container-fluid">
@@ -77,7 +110,7 @@ class UserManage extends Component {
               <div className="card-body">
                 <div className="row no-gutters align-items-center">
                   <div className="col mr-2">
-                    <div class="text-xs font-weight-bold text-danger mb-1 h4">
+                    <div className="text-xs font-weight-bold text-danger mb-1 h4">
                       User
                     </div>
                     <div className="h5 mb-0 font-weight-bold text-gray-800">
@@ -120,7 +153,7 @@ class UserManage extends Component {
                       Male Gender
                     </div>
                     <div className="h5 mb-0 font-weight-bold text-gray-800">
-                      18
+                      {this.state.MaleCount}
                     </div>
                   </div>
                   <div className="col-auto">
@@ -139,7 +172,7 @@ class UserManage extends Component {
                       Female Gender
                     </div>
                     <div className="h5 mb-0 font-weight-bold text-gray-800">
-                      18
+                      {this.state.FemaleCount}
                     </div>
                   </div>
                   <div className="col-auto">
