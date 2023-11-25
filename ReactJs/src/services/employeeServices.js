@@ -17,4 +17,7 @@ const editEmployee = (inputData) => {
   return axios.put("/api/edit-employee", inputData);
 };
 
-export { getAll, createNew, deleteEmployee, editEmployee };
+const SumVacationDays = () => {
+  return axios.get("/api/get-sum-vacation-days");
+};
+export { getAll, createNew, deleteEmployee, editEmployee, SumVacationDays };

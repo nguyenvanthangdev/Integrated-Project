@@ -46,10 +46,23 @@ let handleEdit = async (req, res) => {
     });
   }
 };
-
+let handleSumVacationDays = async (req, res) => {
+  try {
+    let sum = await employeeServices.SumVacationDays();
+    return res.status(200).json({
+      sum: sum,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({
+      error: "An internal server error occurred",
+    });
+  }
+};
 module.exports = {
   handleGetAll: handleGetAll,
   handleCreate: handleCreate,
   handleEdit: handleEdit,
   handleDelete: handleDelete,
+  handleSumVacationDays: handleSumVacationDays,
 };

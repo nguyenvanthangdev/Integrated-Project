@@ -71,6 +71,19 @@ let handleCountPersonalGenderFemale = async (req, res) => {
     });
   }
 };
+let handleShareholderStatus = async (req, res) => {
+  try {
+    let count = await personalServices.CountShareholderStatus();
+    return res.status(200).json({
+      count: count,
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    return res.status(500).json({
+      error: "An internal server error occurred",
+    });
+  }
+};
 module.exports = {
   handleGetAll: handleGetAll,
   handleCreate: handleCreate,
@@ -78,4 +91,5 @@ module.exports = {
   handleDelete: handleDelete,
   handleCountPersonalGenderMale: handleCountPersonalGenderMale,
   handleCountPersonalGenderFemale: handleCountPersonalGenderFemale,
+  handleShareholderStatus: handleShareholderStatus,
 };

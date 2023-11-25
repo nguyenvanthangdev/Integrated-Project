@@ -36,7 +36,11 @@ let initWebRoutes = (app) => {
     "/api/get-count-personal-gender-female",
     personalController.handleCountPersonalGenderFemale
   );
-
+  // Count Shareholder Status
+  router.get(
+    "/api/get-sum-shareholdesr-tatus",
+    personalController.handleShareholderStatus
+  );
   return app.use("/", router);
 };
 module.exports = initWebRoutes;

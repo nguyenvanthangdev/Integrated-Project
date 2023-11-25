@@ -149,6 +149,20 @@ let CountPersonalGenderFemale = () => {
     }
   });
 };
+let CountShareholderStatus = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let count = await db.Personal.count({
+        where: {
+          Shareholder_Status: true,
+        },
+      });
+      resolve(count);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 module.exports = {
   getAll: getAll,
   createNew: createNew,
@@ -156,4 +170,5 @@ module.exports = {
   updateData: updateData,
   CountPersonalGenderMale: CountPersonalGenderMale,
   CountPersonalGenderFemale: CountPersonalGenderFemale,
+  CountShareholderStatus: CountShareholderStatus,
 };

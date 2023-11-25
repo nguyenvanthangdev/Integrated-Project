@@ -119,10 +119,20 @@ let updateData = (data) => {
     }
   });
 };
-
+let SumVacationDays = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let sumVacationDays = await db.Employee.sum("Vacation_Days");
+      resolve(sumVacationDays);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   getAll: getAll,
   createNew: createNew,
   deletePayRate: deletePayRate,
   updateData: updateData,
+  SumVacationDays: SumVacationDays,
 };

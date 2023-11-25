@@ -7,18 +7,19 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
 } from "recharts";
 import { connect } from "react-redux";
 import "./Dashboard.scss";
 import { getAllUsers, countUser } from "../../../services/userService";
 // import { emitter } from "../../../utils/emitter";
-import { getAll, SumPayRates } from "../../../services/payRatesServices";
+import { getAllPayRate, SumPayRates } from "../../../services/payRatesServices";
 import {
   getAllPersonal,
   CountPersonalGenderFemale,
   CountPersonalGenderMale,
+  CountShareholderStatus,
 } from "../../../services/personalServices";
+import { getAll, SumVacationDays } from "../../../services/employeeServices";
 class UserManage extends Component {
   constructor(props) {
     super(props);
@@ -30,6 +31,9 @@ class UserManage extends Component {
       sumPayRates: 0,
       MaleCount: 0,
       FemaleCount: 0,
+      shareholderStatusCount: 0,
+      arrVacationDays: [],
+      sumVacationDays: 0,
     };
   }
 
@@ -37,6 +41,7 @@ class UserManage extends Component {
     await this.getAllUsersFromReact();
     await this.getAllPayRatesFromReact();
     await this.getAllPersonalFromReact();
+    await this.getAllEmployeeFromReact();
   }
 
   getAllUsersFromReact = async () => {
@@ -59,7 +64,7 @@ class UserManage extends Component {
     }
   };
   getAllPayRatesFromReact = async () => {
-    let response = await getAll("ALL");
+    let response = await getAllPayRate("ALL");
     if (response && response.errCode === 0) {
       await this.getSumPayRates();
       this.setState({
@@ -82,6 +87,8 @@ class UserManage extends Component {
     if (response && response.errCode === 0) {
       await this.getCountPersonalGenderFemale();
       await this.getCountPersonalGenderMale();
+      await this.getCountShareholderStatus();
+
       this.setState({
         arrPersonal: response.users,
       });
@@ -102,6 +109,35 @@ class UserManage extends Component {
       let response = await CountPersonalGenderMale();
       this.setState({
         MaleCount: response.count,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  getCountShareholderStatus = async () => {
+    try {
+      let response = await CountShareholderStatus();
+      this.setState({
+        shareholderStatusCount: response.count,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  getAllEmployeeFromReact = async () => {
+    let response = await getAll("ALL");
+    if (response && response.errCode === 0) {
+      await this.getSumVacationDays();
+      this.setState({
+        arrVacationDays: response.users,
+      });
+    }
+  };
+  getSumVacationDays = async () => {
+    try {
+      let response = await SumVacationDays();
+      this.setState({
+        sumVacationDays: response.sum,
       });
     } catch (error) {
       console.error("Error:", error);
@@ -214,10 +250,10 @@ class UserManage extends Component {
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-danger mb-1 h4">
-                        User
+                        Shareholder Status
                       </div>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">
-                        {this.state.userCount}
+                        {this.state.shareholderStatusCount}
                       </div>
                     </div>
                     <div className="col-auto">
@@ -234,10 +270,10 @@ class UserManage extends Component {
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
                       <div className="text-xs font-weight-bold text-success mb-1 h4">
-                        Pay Rates
+                        Vacation Days
                       </div>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">
-                        $ {this.state.sumPayRates}
+                        {this.state.sumVacationDays}
                       </div>
                     </div>
                     <div className="col-auto">
@@ -247,46 +283,7 @@ class UserManage extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-md-6 mb-4">
-              <div className="card border-left-warning shadow h-100 py-2">
-                <div className="card-body">
-                  <div className="row no-gutters align-items-center">
-                    <div className="col mr-2">
-                      <div className="text-xs font-weight-bold text-warning mb-1 h4">
-                        Male Gender
-                      </div>
-                      <div className="h5 mb-0 font-weight-bold text-gray-800">
-                        {this.state.MaleCount}
-                      </div>
-                    </div>
-                    <div className="col-auto">
-                      <i className="fas fa-mars fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-md-6 mb-4">
-              <div className="card border-left-warning shadow h-100 py-2">
-                <div className="card-body">
-                  <div className="row no-gutters align-items-center">
-                    <div className="col mr-2">
-                      <div className="text-xs font-weight-bold text-primary mb-1 h4">
-                        Female Gender
-                      </div>
-                      <div className="h5 mb-0 font-weight-bold text-gray-800">
-                        {this.state.FemaleCount}
-                      </div>
-                    </div>
-                    <div className="col-auto">
-                      <i className="fas fa-venus fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-
           <LineChart
             width={1850}
             height={400}
@@ -297,7 +294,6 @@ class UserManage extends Component {
             <YAxis />
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
-
             <Line
               type="monotone"
               dataKey="value"

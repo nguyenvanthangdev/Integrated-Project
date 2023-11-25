@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import "../User/UserManage.scss";
 
 import {
-  getAll,
+  getAllPayRate,
   createNew,
   deletePayRate,
   editPayRate,
@@ -44,7 +44,7 @@ class ManagePaRates extends Component {
     });
   };
   getAllUsersFromReact = async () => {
-    let response = await getAll("ALL");
+    let response = await getAllPayRate("ALL");
     if (response && response.errCode === 0) {
       this.setState({
         arrUsers: response.users,

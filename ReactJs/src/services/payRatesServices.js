@@ -1,6 +1,6 @@
 import axios from "../axios";
 
-const getAll = (inputId) => {
+const getAllPayRate = (inputId) => {
   return axios.get(`/api/get-all-pay-rates?id=${inputId}`);
 };
 const createNew = (data) => {
@@ -19,4 +19,4 @@ const editPayRate = (inputData) => {
 const SumPayRates = () => {
   return axios.get("/api/get-sum-pay-rates");
 };
-export { getAll, createNew, deletePayRate, editPayRate, SumPayRates };
+export { getAllPayRate, createNew, deletePayRate, editPayRate, SumPayRates };

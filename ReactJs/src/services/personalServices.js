@@ -24,6 +24,9 @@ const CountPersonalGenderFemale = () => {
     "http://localhost:8090/api/get-count-personal-gender-female"
   );
 };
+const CountShareholderStatus = () => {
+  return axios.get("http://localhost:8090/api/get-sum-shareholdesr-tatus");
+};
 export {
   getAllPersonal,
   createNewPersonal,
@@ -31,4 +34,5 @@ export {
   editPersonal,
   CountPersonalGenderMale,
   CountPersonalGenderFemale,
+  CountShareholderStatus,
 };

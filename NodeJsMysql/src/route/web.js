@@ -27,6 +27,11 @@ let initWebRoutes = (app) => {
   router.get("/api/get-user-count", userController.handleCountUsers);
   // Sum Pay-Rates
   router.get("/api/get-sum-pay-rates", payRatesController.handleSumPayRates);
+  // Sum Vacation Days
+  router.get(
+    "/api/get-sum-vacation-days",
+    employeeController.handleSumVacationDays
+  );
 
   return app.use("/", router);
 };
