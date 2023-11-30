@@ -245,11 +245,30 @@ class UserManage extends Component {
           </div>
           <div className="row">
             <div className="col-xl-3 col-md-6 mb-4">
+              <div className="card border-left-success shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-muted mb-1 h4">
+                        Vacation Days
+                      </div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        {this.state.sumVacationDays}
+                      </div>
+                    </div>
+                    <div className="col-auto">
+                      <i className="fa-2x text-gray-300 font-weight-bold">Zz</i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-xl-3 col-md-6 mb-4">
               <div className="card border-left-primary shadow h-100 py-2">
                 <div className="card-body">
                   <div className="row no-gutters align-items-center">
                     <div className="col mr-2">
-                      <div className="text-xs font-weight-bold text-danger mb-1 h4">
+                      <div className="text-xs font-weight-bold text-dark mb-1 h4">
                         Shareholder Status
                       </div>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">
@@ -258,26 +277,6 @@ class UserManage extends Component {
                     </div>
                     <div className="col-auto">
                       <i className="fas fa-user fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-xl-3 col-md-6 mb-4">
-              <div className="card border-left-success shadow h-100 py-2">
-                <div className="card-body">
-                  <div className="row no-gutters align-items-center">
-                    <div className="col mr-2">
-                      <div className="text-xs font-weight-bold text-success mb-1 h4">
-                        Vacation Days
-                      </div>
-                      <div className="h5 mb-0 font-weight-bold text-gray-800">
-                        {this.state.sumVacationDays}
-                      </div>
-                    </div>
-                    <div className="col-auto">
-                      <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>

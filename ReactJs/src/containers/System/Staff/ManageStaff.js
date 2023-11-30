@@ -2,7 +2,7 @@ import React, { Component } from "react";
 //import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "../User/UserManage.scss";
-
+import { toast } from "react-toastify";
 import {
   getAllPersonal,
   createNewPersonal,
@@ -81,15 +81,17 @@ class ManagePaRates extends Component {
         response2.errCode === 0
       ) {
         await this.getAllUsersFromReact();
+        toast.success("Success !");
         this.setState({
           isOpenModalUser: false,
         });
         emitter.emit("EVENT_CLEAR_MODAL_DATA");
       } else {
-        alert(response1.errMessage || response2.errMessage);
+        toast.error(response1.errMessage);
       }
     } catch (e) {
       console.log(e);
+      toast.error("Failed !");
     }
   };
   handleDelete = async (user) => {
@@ -98,12 +100,14 @@ class ManagePaRates extends Component {
       let res2 = await deleteEmployee(user.id);
       if (res1 && res1.errCode === 0 && res2 && res2.errCode === 0) {
         await this.getAllUsersFromReact();
+        toast.success("Delete success !");
       } else {
-        alert(res1.errMessage || res2.errMessage);
+        toast.error(res1.errMessage);
       }
       console.log(res1, res2);
     } catch (e) {
       console.log(e);
+      toast.error("Failed !");
     }
   };
   handEditUser = (user) => {
@@ -121,11 +125,13 @@ class ManagePaRates extends Component {
           isOpenModalEditUser: false,
         });
         await this.getAllUsersFromReact();
+        toast.success(res1.message);
       } else {
-        alert(res1.errCode || res2.errCode);
+        toast.error("Failed !");
       }
     } catch (e) {
       console.log(e);
+      toast.error("Failed !");
     }
   };
   render() {

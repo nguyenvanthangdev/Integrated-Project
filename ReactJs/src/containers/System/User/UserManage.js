@@ -11,6 +11,7 @@ import {
 import ModalUser from "./ModalUser";
 import { emitter } from "../../../utils/emitter";
 import ModalEditUser from "./ModalEditUser";
+import { toast } from "react-toastify";
 class UserManage extends Component {
   constructor(props) {
     super(props);
@@ -54,9 +55,10 @@ class UserManage extends Component {
     try {
       let response = await createNewUserService(data);
       if (response && response.errCode !== 0) {
-        alert(response.errMessage);
+        toast.error(response.errMessage);
       } else {
         await this.getAllUsersFromReact();
+        toast.success("Success !");
         this.setState({
           isOpenModalUser: false,
         });
@@ -64,6 +66,7 @@ class UserManage extends Component {
       }
     } catch (e) {
       console.log(e);
+      toast.error("Failed !");
     }
   };
   handleDeleteUser = async (user) => {
@@ -71,12 +74,14 @@ class UserManage extends Component {
       let res = await deleteUserService(user.id);
       if (res && res.errCode === 0) {
         await this.getAllUsersFromReact();
+        toast.success("Delete success !");
       } else {
-        alert(res.errMessage);
+        toast.error(res.errMessage);
       }
       console.log(res);
     } catch (e) {
       console.log(e);
+      toast.error("Failed !");
     }
   };
   handEditUser = (user) => {
@@ -94,11 +99,13 @@ class UserManage extends Component {
           isOpenModaEditlUser: false,
         });
         await this.getAllUsersFromReact();
+        toast.success(res.message);
       } else {
-        alert(res.errCode);
+        toast.error("Failed !");
       }
     } catch (e) {
       console.log(e);
+      toast.error("Failed !");
     }
   };
 
